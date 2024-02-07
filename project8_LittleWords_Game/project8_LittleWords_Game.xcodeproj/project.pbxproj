@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9271BF682B7377A80009D89F /* level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9271BF672B7377A70009D89F /* level1.txt */; };
 		92B2A0E72B715F4B003BA655 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B2A0E62B715F4B003BA655 /* AppDelegate.swift */; };
 		92B2A0E92B715F4B003BA655 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B2A0E82B715F4B003BA655 /* SceneDelegate.swift */; };
 		92B2A0EB2B715F4B003BA655 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B2A0EA2B715F4B003BA655 /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9271BF672B7377A70009D89F /* level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.txt; sourceTree = SOURCE_ROOT; };
 		92B2A0E32B715F4B003BA655 /* project8_LittleWords_Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project8_LittleWords_Game.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92B2A0E62B715F4B003BA655 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92B2A0E82B715F4B003BA655 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				92B2A0EA2B715F4B003BA655 /* ViewController.swift */,
 				92B2A0EC2B715F4B003BA655 /* Main.storyboard */,
 				92B2A0EF2B715F4C003BA655 /* Assets.xcassets */,
+				9271BF672B7377A70009D89F /* level1.txt */,
 				92B2A0F12B715F4C003BA655 /* LaunchScreen.storyboard */,
 				92B2A0F42B715F4C003BA655 /* Info.plist */,
 			);
@@ -126,6 +129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				92B2A0F32B715F4C003BA655 /* LaunchScreen.storyboard in Resources */,
+				9271BF682B7377A80009D89F /* level1.txt in Resources */,
 				92B2A0F02B715F4C003BA655 /* Assets.xcassets in Resources */,
 				92B2A0EE2B715F4B003BA655 /* Main.storyboard in Resources */,
 			);
