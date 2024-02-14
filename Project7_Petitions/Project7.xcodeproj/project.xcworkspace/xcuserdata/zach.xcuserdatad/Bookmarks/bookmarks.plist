@@ -34,16 +34,16 @@
 			<key>text-context</key>
 			<dict>
 				<key>focused</key>
-				<string>       loadPetitions()
+				<string>        // main logic function
 </string>
 				<key>leading</key>
-				<string>        // main logic function
+				<string>        navigationItem.leftBarButtonItem = sort
         
 </string>
 				<key>trailing</key>
-				<string>            
-
-  
+				<string>        
+       loadPetitions()
+            
 </string>
 			</dict>
 			<key>type</key>

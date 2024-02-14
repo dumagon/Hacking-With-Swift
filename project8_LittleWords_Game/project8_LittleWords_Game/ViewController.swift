@@ -1,6 +1,5 @@
-// Hacking with Swift , Day 36
-// an indie game
 
+// Day 38
 
 
 import UIKit
@@ -22,6 +21,8 @@ class ViewController: UIViewController {
     
     // initializing two variables that will hold a score and level
     
+    var successfulAnswers = 0
+    
     var score = 0 {
         didSet{
             
@@ -37,7 +38,7 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         
         // setting up  the score label
-        
+    
         scoreLabel = UILabel()
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         scoreLabel.textAlignment = .right
@@ -165,8 +166,11 @@ class ViewController: UIViewController {
                 let letterButton = UIButton(type: .system)
                 letterButton.titleLabel?.font = UIFont.systemFont(ofSize: 33)
                 letterButton.setTitle("WWW", for: .normal)
+                letterButton.setTitleColor(.darkGray, for: .normal)
                 let frame = CGRect(x: col * width, y: row * height, width: width, height: height)
                 letterButton.frame = frame
+                letterButton.layer.borderWidth = 1
+                letterButton.layer.borderColor = UIColor.gray.cgColor
                 buttonsView.addSubview(letterButton)
                 letterButtons.append(letterButton)
                 letterButton.addTarget(self, action: #selector(lettersTapped), for: .touchUpInside)
@@ -183,6 +187,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         loadLevel()
         
     }
@@ -217,20 +222,28 @@ class ViewController: UIViewController {
             
             currentAnswer.text = ""
             score += 1
+            successfulAnswers += 1
             
-            if score % 7 == 0 {
+            if successfulAnswers % 7 == 0 {
                 level += 1
                 if level <= 2 {
                     let ac = UIAlertController(title: "Well done!", message: "Are you ready for the next level?", preferredStyle: .alert)
                     ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
                     present(ac,animated: true)
                 }else {
-                    let ac = UIAlertController(title: "Great!", message: "You have finished the game !", preferredStyle: .alert)
+                    let ac = UIAlertController(title: "Great!", message: "You have finished the game ,score: \(score)", preferredStyle: .alert)
                     ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
                     present(ac,animated: true)
                 }
             }
             
+        }else {
+            
+            let ac = UIAlertController(title: "Oops ", message: "Nuhh , it's not the word in question ", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Back", style: .cancel))
+            present(ac,animated: true)
+            if score > 0 { score -= 1}
+            clearTapped(nil)
         }
         
     }
@@ -238,7 +251,7 @@ class ViewController: UIViewController {
     
     
     
-    @objc func clearTapped(_ sender:UIButton){
+    @objc func clearTapped(_ sender:UIButton?){
         
         currentAnswer.text = ""
         
@@ -252,58 +265,67 @@ class ViewController: UIViewController {
     
     
     
+   
+    
+    
+    
+    
+    
     
     // a method that loads every next level of the game
     
-    func loadLevel(){
+  func loadLevel(){
         
         var clueString = ""
         var solutionString = ""
         var letterBits = [String]()
         
         // extracting level data from a text file and arraging it accordingly
+      
+ 
+          
+          if let levelFileURL = Bundle.main.url(forResource: "level\(level)", withExtension: "txt"){
+              if let levelComponents = try? String.init(contentsOf: levelFileURL){
+                  var lines = levelComponents.components(separatedBy: "\n")
+                //  lines.shuffle()
+                  
+                  for (index,line) in lines.enumerated() {  // enumerated() will place the index of an item into "index" and the value into "line"
+                      
+                      let parts = line.components(separatedBy: ":")
+                      let answer = parts[0]
+                      let clue = parts[1]
+                      
+                      clueString += "\(index + 1). \(clue)\n"
+                      
+                      let solutionWord = answer.replacingOccurrences(of: "|", with: "")
+                      solutionString += " \(solutionWord.count) letters\n"
+                      solutions.append(solutionWord)
+                      
+                      let bits = answer.components(separatedBy: "|")
+                      letterBits += bits
+                      letterBits.shuffle()
+                  
+                      
+                  }
+              }
+          }
+          
+      
         
-        if let levelFileURL = Bundle.main.url(forResource: "level\(level)", withExtension: "txt"){
-            if let levelComponents = try? String.init(contentsOf: levelFileURL){
-                var lines = levelComponents.components(separatedBy: "\n")
-                lines.shuffle()
-                
-                for (index,line) in lines.enumerated() {  // enumerated() will place the index of an item into "index" and the value into "line"
-                    
-                    let parts = line.components(separatedBy: ":")
-                    let answer = parts[0]
-                    let clue = parts[1]
-                    
-                    clueString += "\(index + 1). \(clue)\n"
-                    
-                    let solutionWord = answer.replacingOccurrences(of: "|", with: "")
-                    solutionString += " \(solutionWord.count) letters\n"
-                    solutions.append(solutionWord)
-                    
-                    let bits = answer.components(separatedBy: "|")
-                    letterBits += bits 
-                    
-                }
-            }
-        }
         
         
         
         // configuring labels and buttons
-        
-        
-        cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
-        answersLabel.text = solutionString.trimmingCharacters(in: .whitespacesAndNewlines)
-        
      
-       
-        
-        if letterBits.count == letterButtons.count {
-            for i in 0..<letterButtons.count {
-                letterButtons[i].setTitle(letterBits[i], for: .normal)
-            }
-        }
-        
+          
+          cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
+          answersLabel.text = solutionString.trimmingCharacters(in: .whitespacesAndNewlines)
+          
+          if letterBits.count == letterButtons.count {
+              for i in 0..<letterButtons.count {
+                  letterButtons[i].setTitle(letterBits[i], for: .normal)
+              }
+          }
     }
     
     

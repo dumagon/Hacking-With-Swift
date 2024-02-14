@@ -11,6 +11,8 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         // creating controls
         
         let credits = UIBarButtonItem(title: "Credits", style: .plain, target: self, action: #selector(creditsButtonTapped))
@@ -99,6 +101,8 @@ class ViewController: UITableViewController {
            
          
         }
+        
+        
         if let url = URL(string: urlString){
             if let data = try? Data(contentsOf: url){
                 parse(json: data)
@@ -173,6 +177,8 @@ class ViewController: UITableViewController {
     
     private func filter(_ content:String){
         
+    
+        
         var filteredPetitions = [Petition]()
         
         let sequence = content.lowercased()
@@ -183,13 +189,15 @@ class ViewController: UITableViewController {
             }
         }
         
-        if !filteredPetitions.isEmpty{
-            
-            petitions = filteredPetitions
-            tableView.reloadData()
-            
-        }
+            if !filteredPetitions.isEmpty{
+                
+                petitions = filteredPetitions
+                
+            }
+                tableView.reloadData()
+            }
+        
         
     }
 
-}
+
