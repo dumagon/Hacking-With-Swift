@@ -22,7 +22,7 @@
 		9271BF672B7377A70009D89F /* level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.txt; sourceTree = SOURCE_ROOT; };
 		9271BF692B7382370009D89F /* notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = notes.txt; sourceTree = "<group>"; };
 		9271BF6B2B7698160009D89F /* level2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level2.txt; sourceTree = SOURCE_ROOT; };
-		92B2A0E32B715F4B003BA655 /* project8_LittleWords_Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = project8_LittleWords_Game.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		92B2A0E32B715F4B003BA655 /* Project8_LittleWords_Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project8_LittleWords_Game.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92B2A0E62B715F4B003BA655 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92B2A0E82B715F4B003BA655 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		92B2A0EA2B715F4B003BA655 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		92B2A0E42B715F4B003BA655 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				92B2A0E32B715F4B003BA655 /* project8_LittleWords_Game.app */,
+				92B2A0E32B715F4B003BA655 /* Project8_LittleWords_Game.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -79,9 +79,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		92B2A0E22B715F4B003BA655 /* project8_LittleWords_Game */ = {
+		92B2A0E22B715F4B003BA655 /* Project8_LittleWords_Game */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 92B2A0F72B715F4C003BA655 /* Build configuration list for PBXNativeTarget "project8_LittleWords_Game" */;
+			buildConfigurationList = 92B2A0F72B715F4C003BA655 /* Build configuration list for PBXNativeTarget "Project8_LittleWords_Game" */;
 			buildPhases = (
 				92B2A0DF2B715F4B003BA655 /* Sources */,
 				92B2A0E02B715F4B003BA655 /* Frameworks */,
@@ -91,9 +91,9 @@
 			);
 			dependencies = (
 			);
-			name = project8_LittleWords_Game;
+			name = Project8_LittleWords_Game;
 			productName = project8_LittleWords_Game;
-			productReference = 92B2A0E32B715F4B003BA655 /* project8_LittleWords_Game.app */;
+			productReference = 92B2A0E32B715F4B003BA655 /* Project8_LittleWords_Game.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -111,7 +111,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 92B2A0DE2B715F4B003BA655 /* Build configuration list for PBXProject "project8_LittleWords_Game" */;
+			buildConfigurationList = 92B2A0DE2B715F4B003BA655 /* Build configuration list for PBXProject "Project8_LittleWords_Game" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -124,7 +124,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				92B2A0E22B715F4B003BA655 /* project8_LittleWords_Game */,
+				92B2A0E22B715F4B003BA655 /* Project8_LittleWords_Game */,
 			);
 		};
 /* End PBXProject section */
@@ -364,7 +364,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		92B2A0DE2B715F4B003BA655 /* Build configuration list for PBXProject "project8_LittleWords_Game" */ = {
+		92B2A0DE2B715F4B003BA655 /* Build configuration list for PBXProject "Project8_LittleWords_Game" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				92B2A0F52B715F4C003BA655 /* Debug */,
@@ -373,7 +373,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		92B2A0F72B715F4C003BA655 /* Build configuration list for PBXNativeTarget "project8_LittleWords_Game" */ = {
+		92B2A0F72B715F4C003BA655 /* Build configuration list for PBXNativeTarget "Project8_LittleWords_Game" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				92B2A0F82B715F4C003BA655 /* Debug */,
