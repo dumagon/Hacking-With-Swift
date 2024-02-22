@@ -1,0 +1,16 @@
+
+parts[] = ["HA|UNT|ED","Ghosts in residence"]
+
+answer = "HA|UNT|ED"
+
+clue = "Ghosts in residence"
+
+clueString = " 1. Ghosts in residence "
+
+solutionWord = "HAUNTED"
+
+solutionString = " 7 letters "
+
+solutions[] = ["HAUNTED"]
+
+letterBits[] = ["HA","UNT","ED"]

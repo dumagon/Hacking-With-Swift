@@ -1,6 +1,6 @@
 
-// Day 38
-
+// Home work for Day 39 GCD
+// added code is marked with $$$
 
 import UIKit
 
@@ -282,33 +282,38 @@ class ViewController: UIViewController {
         
         // extracting level data from a text file and arraging it accordingly
       
- 
-          
-          if let levelFileURL = Bundle.main.url(forResource: "level\(level)", withExtension: "txt"){
+      
+ // $$$
+      DispatchQueue.global().async {
+          if let levelFileURL = Bundle.main.url(forResource: "level\(self.level)", withExtension: "txt"){
               if let levelComponents = try? String.init(contentsOf: levelFileURL){
-                  var lines = levelComponents.components(separatedBy: "\n")
+                  let lines = levelComponents.components(separatedBy: "\n")
                 //  lines.shuffle()
-                  
-                  for (index,line) in lines.enumerated() {  // enumerated() will place the index of an item into "index" and the value into "line"
+                
+                      for (index,line) in lines.enumerated() {  // enumerated() will place the index of an item into "index" and the value into "line"
+                          
+                          let parts = line.components(separatedBy: ":")
+                          let answer = parts[0]
+                          let clue = parts[1]
+                          
+                          clueString += "\(index + 1). \(clue)\n"
+                          
+                          let solutionWord = answer.replacingOccurrences(of: "|", with: "")
+                          solutionString += " \(solutionWord.count) letters\n"
+                          self.solutions.append(solutionWord)
+                          
+                          let bits = answer.components(separatedBy: "|")
+                          letterBits += bits
+                          letterBits.shuffle()
                       
-                      let parts = line.components(separatedBy: ":")
-                      let answer = parts[0]
-                      let clue = parts[1]
-                      
-                      clueString += "\(index + 1). \(clue)\n"
-                      
-                      let solutionWord = answer.replacingOccurrences(of: "|", with: "")
-                      solutionString += " \(solutionWord.count) letters\n"
-                      solutions.append(solutionWord)
-                      
-                      let bits = answer.components(separatedBy: "|")
-                      letterBits += bits
-                      letterBits.shuffle()
-                  
-                      
-                  }
+                          
+                      }
+               
+                 
               }
           }
+      }
+          
           
       
         
@@ -316,17 +321,20 @@ class ViewController: UIViewController {
         
         
         // configuring labels and buttons
-     
+      
+     // $$$
+      DispatchQueue.main.async {
           
-          cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
-          answersLabel.text = solutionString.trimmingCharacters(in: .whitespacesAndNewlines)
+          self.cluesLabel.text = clueString.trimmingCharacters(in: .whitespacesAndNewlines)
+          self.answersLabel.text = solutionString.trimmingCharacters(in: .whitespacesAndNewlines)
           
-          if letterBits.count == letterButtons.count {
-              for i in 0..<letterButtons.count {
-                  letterButtons[i].setTitle(letterBits[i], for: .normal)
+          if letterBits.count == self.letterButtons.count {
+              for i in 0..<self.letterButtons.count {
+                  self.letterButtons[i].setTitle(letterBits[i], for: .normal)
               }
           }
-    }
+      }
+   }
     
     
     

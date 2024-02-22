@@ -15,6 +15,7 @@ class OptionalViewController: UITableViewController {
     
     var petitions = [Petition]()
     var errorDidAppeared = false
+    var tagValue = 0
     
 
     override func viewDidLoad() {
@@ -32,10 +33,14 @@ class OptionalViewController: UITableViewController {
         
         // main logic function
         
-        // asigning the function to a background thread
-        performSelector(inBackground: #selector(loadPetitions), with: nil)
+        // getting a value of a tag
+        guard let  tag = navigationController?.tabBarItem.tag else {return}
+        tagValue = tag
         
-    
+        // asigning the function to a background thread
+        performSelector(inBackground: #selector(loadPetitions), with: nil )
+        
+  
             
 
   
@@ -51,10 +56,14 @@ class OptionalViewController: UITableViewController {
         
         
         let urlString: String
+       
         
 
         
-        if navigationController?.tabBarItem.tag == 0 {
+         
+      
+           
+        if tagValue == 0 {
             
             urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
             
@@ -91,7 +100,7 @@ class OptionalViewController: UITableViewController {
             petitions = jsonPetitions.results
 
             // switching to the main thread to update UI
-            tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
+            performSelector(onMainThread: #selector(reloadView), with: nil, waitUntilDone: false)
             
         }else{
             
@@ -181,6 +190,15 @@ class OptionalViewController: UITableViewController {
             
         }
         
+    }
+    
+    // this fuction updates UI
+    @objc func reloadView(){
+        tableView.reloadData()
+    }
+    
+    @objc func validateView()->Bool{
+        return navigationController?.tabBarItem.tag == 0
     }
     
     

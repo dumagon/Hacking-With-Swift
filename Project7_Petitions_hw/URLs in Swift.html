@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="HandheldFriendly" content="True" />
+<meta name="MobileOptimized" content="320" />
+
+<title>URLs in Swift: Common scenarios explained in-depth - SwiftLee</title>
+
+<link rel="profile" href="https://gmpg.org/xfn/11">
+<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO Premium plugin v21.7 (Yoast SEO v21.7) - https://yoast.com/wordpress/plugins/seo/ -->
+	<meta name="description" content="URLs are used a lot when buildings apps in Swift. You need to get the query items, file extension, or the filename. All scenarios are handled in-depth!" />
+	<link rel="canonical" href="https://www.avanderlee.com/swift/url-components/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="URLs in Swift: Common scenarios explained in-depth" />
+	<meta property="og:description" content="URLs are used a lot when buildings apps in Swift. You need to get the query items, file extension, or the filename. All scenarios are handled in-depth!" />
+	<meta property="og:url" content="https://www.avanderlee.com/swift/url-components/" />
+	<meta property="og:site_name" content="SwiftLee" />
+	<meta property="article:published_time" content="2020-04-21T07:00:00+00:00" />
+	<meta property="article:modified_time" content="2020-04-22T17:31:32+00:00" />
+	<meta property="og:image" content="https://swiftlee-banners.herokuapp.com/imagegenerator.php?title=URLs+in+Swift%3A+Common+scenarios+explained+in-depth" />
+	<meta property="og:image:width" content="2000" />
+	<meta property="og:image:height" content="2000" />
+	<meta property="og:image:type" content="image/jpeg" />
+	<meta name="author" content="Antoine van der Lee" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:image" content="https://swiftlee-banners.herokuapp.com/imagegenerator.php?title=URLs+in+Swift%3A+Common+scenarios+explained+in-depth" />
+	<meta name="twitter:creator" content="@twannl" />
+	<meta name="twitter:site" content="@twannl" />
+	<meta name="twitter:label1" content="Written by" />
+	<meta name="twitter:data1" content="Antoine van der Lee" />
+	<meta name="twitter:label2" content="Est. reading time" />
+	<meta name="twitter:data2" content="7 minutes" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://www.avanderlee.com/swift/url-components/#article","isPartOf":{"@id":"https://www.avanderlee.com/swift/url-components/"},"author":{"name":"Antoine van der Lee","@id":"https://www.avanderlee.com/#/schema/person/37e483f0475f992424966c4ddbc86625"},"headline":"URLs in Swift: Common scenarios explained in-depth","datePublished":"2020-04-21T07:00:00+00:00","dateModified":"2020-04-22T17:31:32+00:00","mainEntityOfPage":{"@id":"https://www.avanderlee.com/swift/url-components/"},"wordCount":992,"publisher":{"@id":"https://www.avanderlee.com/#/schema/person/37e483f0475f992424966c4ddbc86625"},"keywords":["nsurl","query","urlcomponents"],"articleSection":["Swift"],"inLanguage":"en-US"},{"@type":"WebPage","@id":"https://www.avanderlee.com/swift/url-components/","url":"https://www.avanderlee.com/swift/url-components/","name":"URLs in Swift: Common scenarios explained in-depth - SwiftLee","isPartOf":{"@id":"https://www.avanderlee.com/#website"},"datePublished":"2020-04-21T07:00:00+00:00","dateModified":"2020-04-22T17:31:32+00:00","description":"URLs are used a lot when buildings apps in Swift. You need to get the query items, file extension, or the filename. All scenarios are handled in-depth!","breadcrumb":{"@id":"https://www.avanderlee.com/swift/url-components/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://www.avanderlee.com/swift/url-components/"]}]},{"@type":"BreadcrumbList","@id":"https://www.avanderlee.com/swift/url-components/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"SwiftLee","item":"https://www.avanderlee.com/"},{"@type":"ListItem","position":2,"name":"Swift","item":"https://www.avanderlee.com/category/swift/"},{"@type":"ListItem","position":3,"name":"URLs in Swift: Common scenarios explained in-depth"}]},{"@type":"WebSite","@id":"https://www.avanderlee.com/#website","url":"https://www.avanderlee.com/","name":"SwiftLee","description":"A weekly blog about Swift, iOS and Xcode Tips and Tricks","publisher":{"@id":"https://www.avanderlee.com/#/schema/person/37e483f0475f992424966c4ddbc86625"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.avanderlee.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":["Person","Organization"],"@id":"https://www.avanderlee.com/#/schema/person/37e483f0475f992424966c4ddbc86625","name":"Antoine van der Lee","image":{"@type":"ImageObject","inLanguage":"en-US","@id":"https://www.avanderlee.com/#/schema/person/image/","url":"https://www.avanderlee.com/wp-content/uploads/2020/03/202003-Twan-Portret007_126x126_mooier-min.jpg","contentUrl":"https://www.avanderlee.com/wp-content/uploads/2020/03/202003-Twan-Portret007_126x126_mooier-min.jpg","width":126,"height":126,"caption":"Antoine van der Lee"},"logo":{"@id":"https://www.avanderlee.com/#/schema/person/image/"},"description":"iOS Developer since 2010. Lead developer of the Collect by WeTransfer app. Writing a new blog post every week related to Swift, iOS and Xcode. Regular speaker and workshop host.","sameAs":["https://www.avanderlee.com","https://twitter.com/twannl"]}]}</script>
+	<!-- / Yoast SEO Premium plugin. -->
+
+
+<link rel='dns-prefetch' href='//a.omappapi.com' />
+
+<link rel="alternate" type="application/rss+xml" title="SwiftLee &raquo; Feed" href="https://www.avanderlee.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="SwiftLee &raquo; Comments Feed" href="https://www.avanderlee.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="SwiftLee &raquo; URLs in Swift: Common scenarios explained in-depth Comments Feed" href="https://www.avanderlee.com/swift/url-components/feed/" />
+<link rel='stylesheet' id='pt-cv-public-style-css' href='https://www.avanderlee.com/wp-content/plugins/content-views-query-and-display-post-page/public/assets/css/cv.css?ver=3.6.1.1' type='text/css' media='all' />
+<link rel='stylesheet' id='pt-cv-public-pro-style-css' href='https://www.avanderlee.com/wp-content/plugins/pt-content-views-pro/public/assets/css/cvpro.min.css?ver=5.9.2' type='text/css' media='all' />
+<style id='wp-emoji-styles-inline-css' type='text/css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='https://www.avanderlee.com/wp-includes/css/dist/block-library/style.min.css?ver=6.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-components-css' href='https://www.avanderlee.com/wp-includes/css/dist/components/style.min.css?ver=6.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-editor-css' href='https://www.avanderlee.com/wp-includes/css/dist/block-editor/style.min.css?ver=6.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-reusable-blocks-css' href='https://www.avanderlee.com/wp-includes/css/dist/reusable-blocks/style.min.css?ver=6.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-patterns-css' href='https://www.avanderlee.com/wp-includes/css/dist/patterns/style.min.css?ver=6.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-editor-css' href='https://www.avanderlee.com/wp-includes/css/dist/editor/style.min.css?ver=6.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='sticky_block-css-css' href='https://www.avanderlee.com/wp-content/plugins/sticky-block/dist/blocks.style.build.css' type='text/css' media='all' />
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}body .is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}body .is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}body .is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}body .is-layout-flex{flex-wrap: wrap;align-items: center;}body .is-layout-flex > *{margin: 0;}body .is-layout-grid{display: grid;}body .is-layout-grid > *{margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+.wp-block-navigation a:where(:not(.wp-element-button)){color: inherit;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+.wp-block-pullquote{font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='mkaz-code-syntax-prism-css-css' href='https://www.avanderlee.com/wp-content/themes/casper/assets/prism/prism.css?ver=1635438754' type='text/css' media='all' />
+<link rel='stylesheet' id='rss-retriever-css' href='https://www.avanderlee.com/wp-content/plugins/wp-rss-retriever/inc/css/rss-retriever.css?ver=1.6.10' type='text/css' media='all' />
+<link rel='stylesheet' id='ivory-search-styles-css' href='https://www.avanderlee.com/wp-content/plugins/add-search-to-menu/public/css/ivory-search.min.css?ver=5.5.4' type='text/css' media='all' />
+<link rel='stylesheet' id='add-anchor-links-style-css' href='https://www.avanderlee.com/wp-content/plugins/add-anchor-links/assets/css/add-anchor-links.css?ver=1.0.2' type='text/css' media='all' />
+<link rel='stylesheet' id='casper-style-css' href='https://www.avanderlee.com/wp-content/themes/casper/style.css?ver=6.4.2' type='text/css' media='all' />
+<link rel='stylesheet' id='swiftleestyles-css' href='https://www.avanderlee.com/wp-content/themes/casper/swiftlee-style.css?ver=6.4.2' type='text/css' media='all' />
+<script type="1f9a99dc6ecd60553e3e1c5f-text/javascript" src="https://www.avanderlee.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="1f9a99dc6ecd60553e3e1c5f-text/javascript" src="https://www.avanderlee.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js" defer></script>
+<script data-minify="1" type="1f9a99dc6ecd60553e3e1c5f-text/javascript" src="https://www.avanderlee.com/wp-content/cache/min/1/wp-content/plugins/stop-user-enumeration/frontend/js/frontend.js?ver=1706131126" id="stop-user-enumeration-js" defer></script>
+<script type="application/json" id="wpp-json">
+
+{"sampling_active":0,"sampling_rate":100,"ajax_url":"https:\/\/www.avanderlee.com\/wp-json\/wordpress-popular-posts\/v1\/popular-posts","api_url":"https:\/\/www.avanderlee.com\/wp-json\/wordpress-popular-posts","ID":4312,"token":"dadac90c15","lang":0,"debug":0}
+
+</script>
+<script type="1f9a99dc6ecd60553e3e1c5f-text/javascript" src="https://www.avanderlee.com/wp-content/plugins/wordpress-popular-posts/assets/js/wpp.min.js?ver=6.3.4" id="wpp-js-js" defer></script>
+<link rel="https://api.w.org/" href="https://www.avanderlee.com/wp-json/" /><link rel="alternate" type="application/json" href="https://www.avanderlee.com/wp-json/wp/v2/posts/4312" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.avanderlee.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.4.2" />
+<link rel='shortlink' href='https://www.avanderlee.com/?p=4312' />
+<link rel="alternate" type="application/json+oembed" href="https://www.avanderlee.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.avanderlee.com%2Fswift%2Furl-components%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.avanderlee.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.avanderlee.com%2Fswift%2Furl-components%2F&#038;format=xml" />
+
+<!-- This site is using AdRotate Professional v5.14.2 to display their advertisements - https://ajdg.solutions/ -->
+<!-- AdRotate CSS -->
+<style type="text/css" media="screen">
+	.gotngnp { margin:0px; padding:0px; overflow:hidden; line-height:1; zoom:1; }
+	.gotngnp img { height:auto; }
+	.gotngnp-col { position:relative; float:left; }
+	.gotngnp-col:first-child { margin-left: 0; }
+	.gotngnp-col:last-child { margin-right: 0; }
+	.woocommerce-page .gotngnp, .bbpress-wrapper .gotngnp { margin: 20px auto; clear:both; }
+	@media only screen and (max-width: 480px) {
+		.gotngnp-col, .gotngnp-dyn, .gotngnp-single { width:100%; margin-left:0; margin-right:0; }
+		.woocommerce-page .gotngnp, .bbpress-wrapper .gotngnp { margin: 10px auto; }
+	}
+</style>
+<!-- /AdRotate CSS -->
+
+<style>[class*=" icon-oc-"],[class^=icon-oc-]{speak:none;font-style:normal;font-weight:400;font-variant:normal;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.icon-oc-one-com-white-32px-fill:before{content:"901"}.icon-oc-one-com:before{content:"900"}#one-com-icon,.toplevel_page_onecom-wp .wp-menu-image{speak:none;display:flex;align-items:center;justify-content:center;text-transform:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.onecom-wp-admin-bar-item>a,.toplevel_page_onecom-wp>.wp-menu-name{font-size:16px;font-weight:400;line-height:1}.toplevel_page_onecom-wp>.wp-menu-name img{width:69px;height:9px;}.wp-submenu-wrap.wp-submenu>.wp-submenu-head>img{width:88px;height:auto}.onecom-wp-admin-bar-item>a img{height:7px!important}.onecom-wp-admin-bar-item>a img,.toplevel_page_onecom-wp>.wp-menu-name img{opacity:.8}.onecom-wp-admin-bar-item.hover>a img,.toplevel_page_onecom-wp.wp-has-current-submenu>.wp-menu-name img,li.opensub>a.toplevel_page_onecom-wp>.wp-menu-name img{opacity:1}#one-com-icon:before,.onecom-wp-admin-bar-item>a:before,.toplevel_page_onecom-wp>.wp-menu-image:before{content:'';position:static!important;background-color:rgba(240,245,250,.4);border-radius:102px;width:18px;height:18px;padding:0!important}.onecom-wp-admin-bar-item>a:before{width:14px;height:14px}.onecom-wp-admin-bar-item.hover>a:before,.toplevel_page_onecom-wp.opensub>a>.wp-menu-image:before,.toplevel_page_onecom-wp.wp-has-current-submenu>.wp-menu-image:before{background-color:#76b82a}.onecom-wp-admin-bar-item>a{display:inline-flex!important;align-items:center;justify-content:center}#one-com-logo-wrapper{font-size:4em}#one-com-icon{vertical-align:middle}.imagify-welcome{display:none !important;}</style><link rel="apple-touch-icon" sizes="180x180" href="/wp-content/uploads/fbrfg/apple-touch-icon.png?v=2">
+<link rel="icon" type="image/png" sizes="32x32" href="/wp-content/uploads/fbrfg/favicon-32x32.png?v=2">
+<link rel="icon" type="image/png" sizes="16x16" href="/wp-content/uploads/fbrfg/favicon-16x16.png?v=2">
+<link rel="manifest" href="/wp-content/uploads/fbrfg/site.webmanifest?v=2">
+<link rel="mask-icon" href="/wp-content/uploads/fbrfg/safari-pinned-tab.svg?v=2" color="#ee4e3a">
+<link rel="shortcut icon" href="/wp-content/uploads/fbrfg/favicon.ico?v=2">
+<meta name="msapplication-TileColor" content="#ee4e3a">
+<meta name="msapplication-config" content="/wp-content/uploads/fbrfg/browserconfig.xml?v=2">
+<meta name="theme-color" content="#ffffff">            <style id="wpp-loading-animation-styles">@-webkit-keyframes bgslide{from{background-position-x:0}to{background-position-x:-200%}}@keyframes bgslide{from{background-position-x:0}to{background-position-x:-200%}}.wpp-widget-placeholder,.wpp-widget-block-placeholder,.wpp-shortcode-placeholder{margin:0 auto;width:60px;height:3px;background:#dd3737;background:linear-gradient(90deg,#dd3737 0%,#571313 10%,#dd3737 100%);background-size:200% auto;border-radius:3px;-webkit-animation:bgslide 1s infinite linear;animation:bgslide 1s infinite linear}</style>
+            
+   	<style type="text/css">
+					.blog-title a, .blog-description, .social-icons a { color: #fafafa; }
+		
+								    .site-head { background-color: #ee4e3a; }
+		                
+		
+					a:hover, body .blog-title a:hover, body .social-icons a:hover { color: #ee4e3a; }
+							.main-navigation a { color: ; }
+		                        			.blog-logo img {
+				-webkit-border-radius: 50%;
+			    -moz-border-radius: 50%;
+			    border-radius: 50%;
+			}
+                			.blog-logo img {
+			    border: 3px solid white;
+			    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+			    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+			    box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+			}
+                			.site-head:after {
+			    display: none;
+			}
+            </style>
+    <script data-minify="1" data-domain="avanderlee.com" data-api="https://worker-small-art-7053.twan-n.workers.dev/plausieble/event" src="https://www.avanderlee.com/wp-content/cache/min/1/plausieble/script.outbound-links.tagged-events.js?ver=1706131126" defer type="1f9a99dc6ecd60553e3e1c5f-text/javascript"></script><script type="1f9a99dc6ecd60553e3e1c5f-text/javascript">/* <![CDATA[ */window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }/* ]]> */</script>	<style type="text/css">
+			.site-title a,
+		.site-description {
+			color: #fafafa;
+		}
+		</style>
+				<style type="text/css">
+					</style>
+					<script id='ivory-search-js-extras' type="1f9a99dc6ecd60553e3e1c5f-text/javascript">
+			var IvoryAjaxVars = {"ajaxurl":"https:\/\/www.avanderlee.com\/wp-admin\/admin-ajax.php","ajax_nonce":"5991a7d157"};
+							var IvorySearchVars = {"is_analytics_enabled":"1"};
+							</script>
+			<noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript></head>
+
+<body class="post-template-default single single-post postid-4312 single-format-standard casper">
+
+<header id="masthead" role="banner" class="site-head site-header" >
+    <nav id="site-navigation" class="main-navigation" role="navigation">
+        <div class="menu-main-menu-container"><ul id="menu-main-menu" class="menu"><li id="menu-item-4731" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4731"><a href="https://www.avanderlee.com/swiftlee-weekly/">Newsletter</a></li>
+<li id="menu-item-802" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-802"><a href="https://www.avanderlee.com/about/">About</a></li>
+<li id="menu-item-2028" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2028"><a href="https://www.avanderlee.com/sponsor/">Sponsorship</a></li>
+</ul></div>    </nav><!-- #site-navigation -->
+        <div class="vertical-row">
+        <div class="vertical">
+            <div class="site-head-content inner">
+            	<!-- TWITTER FOLLOWERS BUTTON -->
+				<div class="twitter-followers-button">
+					<a id="count" class="note" href="https://twitter.com/intent/user?original_referer=https%3A%2F%2Fwww.avanderlee.com&region=count_link&screen_name=twannl&tw_p=followbutton">
+	                <!-- 11079 followers</a> -->
+                    51,170 followers</a>
+				</div>
+
+
+                                    <a class="blog-logo" href='https://www.avanderlee.com/' rel='home'><img width="378" height="378" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20378%20378'%3E%3C/svg%3E" alt='SwiftLee' data-lazy-src="https://www.avanderlee.com/wp-content/uploads/2020/04/avatar_126@3x-min.jpg"><noscript><img width="378" height="378" src='https://www.avanderlee.com/wp-content/uploads/2020/04/avatar_126@3x-min.jpg' alt='SwiftLee'></noscript></a>
+                                                    <h2 class="blog-title"><a class="blog-logo" href=https://www.avanderlee.com/ rel="home">SwiftLee</a></h2><h2 class="blog-description">A weekly blog about Swift, iOS and Xcode Tips and Tricks</h2>            </div>
+             
+            <div class="mailchimp_subscribe_form">
+                <form id="mc4wp-form-1" class="mc4wp-form mc4wp-form-1316" action="https://www.avanderlee.com/sendy/subscribe" method="POST" accept-charset="utf-8">
+                    <div class="mc4wp-form-fields">
+                        <p>
+                            <label for="mailchimp-email">Every Tuesday, curated Swift content from the community for free.</label>                            
+                            <input id="mailchimp-email" type="email" name="email" placeholder="Your email address" required="">
+                            <input type="submit" value="Keep me up to date"/>
+                        </p>
+                    </div>
+                    <div style="display:none;">
+                        <label for="hp">HP</label><br/>
+                        <input type="text" name="hp" id="hp"/>
+                    </div>
+                    <input type="hidden" name="list" value="1g197sxORSW2Zw6xXxYd0g"/>
+                    <input type="hidden" name="subform" value="yes"/>
+                    <input type="hidden" name="source" value="header" style="display:none">
+                </form>
+            </div>
+                    </div>
+    </div>
+    </header><!-- #masthead -->
+
+
+<main id="content" class="content" role="main">
+     
+    <div class="rocketsim_upsell" data-dd-action-name="rocketsim_button_c">
+        <a href="https://www.rocketsim.app?utm_source=swiftlee&utm_medium=web&utm_campaign=rocketsim-sticky" target="_blank" data-dd-action-name="rocketsim_button" onclick="if (!window.__cfRLUnblockHandlers) return false; plausible('RocketSim Sticky Button');" data-cf-modified-1f9a99dc6ecd60553e3e1c5f-="">
+            <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2048%2048'%3E%3C/svg%3E" width="48" height="48" alt="Give your simulator superpowers" data-lazy-src="https://www.avanderlee.com/wp-content/themes/casper/img/rocketsim_icon.png" /><noscript><img src="https://www.avanderlee.com/wp-content/themes/casper/img/rocketsim_icon.png" width="48" height="48" alt="Give your simulator superpowers" /></noscript>
+            <p data-dd-action-name="rocketsim_button_p"><strong>RocketSim:</strong> An Essential Developer Tool<br/>as recommended by Apple</p>
+        </a>
+    </div>
+    		<p id="breadcrumbs" class="breadcrumbs hentry"><span><span><a href="https://www.avanderlee.com/">SwiftLee</a></span> &gt; <span><a href="https://www.avanderlee.com/category/swift/">Swift</a></span> &gt; <span class="breadcrumb_last" aria-current="page">URLs in Swift: Common scenarios explained in-depth</span></span></p>
+		
+			<article id="post-4312" class="post-4312 post type-post status-publish format-standard hentry category-swift tag-nsurl tag-query tag-urlcomponents">
+	<div class="post-actions">
+		<a href="https://twitter.com/intent/tweet?via=twannl&hashtags=swiftlee,ios,swiftlang&url=https%3A%2F%2Fwww.avanderlee.com%2Fswift%2Furl-components%2F&text=URLs+in+Swift%3A+Common+scenarios+explained+in-depth" title="Share on Twitter" class="twitter-share" aria-label="Share on Twitter" target="_blank" rel="nofollow noopener noreferrer">
+			<svg class="svgIcon-use" width="29" height="29">
+				<path d="M22.053 7.54a4.474 4.474 0 0 0-3.31-1.455 4.526 4.526 0 0 0-4.526 4.524c0 .35.04.7.082 1.05a12.9 12.9 0 0 1-9.3-4.77c-.39.69-.61 1.46-.65 2.26.03 1.6.83 2.99 2.02 3.79-.72-.02-1.41-.22-2.02-.57-.01.02-.01.04 0 .08-.01 2.17 1.55 4 3.63 4.44-.39.08-.79.13-1.21.16-.28-.03-.57-.05-.81-.08.54 1.77 2.21 3.08 4.2 3.15a9.564 9.564 0 0 1-5.66 1.94c-.34-.03-.7-.06-1.05-.08 2 1.27 4.38 2.02 6.94 2.02 8.31 0 12.86-6.9 12.84-12.85.02-.24.01-.43 0-.65.89-.62 1.65-1.42 2.26-2.34-.82.38-1.69.62-2.59.72a4.37 4.37 0 0 0 1.94-2.51c-.84.53-1.81.9-2.83 1.13z"></path>
+			</svg>
+		</a>
+	</div>
+	<div class="article-table-of-contents">
+		<div id="ez-toc-container" class="ez-toc-v2_0_61 counter-hierarchy ez-toc-counter ez-toc-transparent ez-toc-container-direction">
+<div class="ez-toc-title-container"><p class="ez-toc-title">In this article</p>
+</div><nav><ul class='ez-toc-list ez-toc-list-level-1 ' ><li class='ez-toc-page-1 ez-toc-heading-level-2'><a class="ez-toc-link ez-toc-heading-1" href="#basic-url-operations" title="Basic URL Operations">Basic URL Operations</a></li><li class='ez-toc-page-1 ez-toc-heading-level-2'><a class="ez-toc-link ez-toc-heading-2" href="#working-with-url-components" title="Working with URL Components">Working with URL Components</a></li><li class='ez-toc-page-1 ez-toc-heading-level-2'><a class="ez-toc-link ez-toc-heading-3" href="#working-with-file-urls" title="Working with file URLs">Working with file URLs</a></li></ul></nav></div>
+	</div>
+    <header class="post-header">
+                	<span class="post-meta">
+        	    <span class="terms"><a href="https://www.avanderlee.com/category/swift/" title="View all posts in Swift" rel="category tag" class="pt-cv-tax-swift">Swift</a> </span><span class="posted-on"><a href="https://www.avanderlee.com/swift/url-components/" rel="bookmark"><time class="entry-date published" datetime="2020-04-21T09:00:00+02:00">Apr 21, 2020</time><time class="updated" datetime="2020-04-22T19:31:32+02:00">Apr 22, 2020</time></a></span><span class="span-reading-time rt-reading-time"><span class="rt-label rt-prefix">&nbsp;&nbsp;&bull;&nbsp;</span> <span class="rt-time"> 5</span> <span class="rt-label rt-postfix">min read</span></span>        	</span>
+		        <h1 class="post-title"><a href="https://www.avanderlee.com/swift/url-components/" rel="bookmark">URLs in Swift: Common scenarios explained in-depth</a></h1>
+        
+    </header>
+    		<section class="post-content">
+		    
+<p>URLs are everywhere in an app we built. We reference local files using bundle paths, we fetch data from a path pointing to our API, and we fetch images to display visuals. While working with URLs we often need to verify things like making sure that it&#8217;s pointing to a file or that certain query property is set.
+
+
+
+<p>Some of those operations might be easy to remember and don&#8217;t require an intensive guide like this. However, I find myself often searching for that one stack overflow question that explains how to build a URL with a given set of query parameters. As a blogger, this is often the moment where I decide to write a manual for myself and share it with you!<div class="gotngnp gotngnp-1"><div class="gotngnp-single aotngnp-97"><span class="swiftlee-ad"><span class="sponsor-title"><a onClick="if (!window.__cfRLUnblockHandlers) return false; gtag('event', 'click', {'event_category': 'Adverts', 'event_label': 'Stream 2024 - Variant B', 'value': 1.00,  'non_interaction': true}); plausible('Ad Click', {props: {partner: 'Stream 2024 - Variant B'}});" href="https://getstream.io/video/sdk/ios/tutorial/video-calling/?utm_source=swiftlee&utm_medium=promoted_newsletter&utm_content=developer&utm_campaign=sponsorship_variant_b" target="_blank" rel="sponsored" data-cf-modified-1f9a99dc6ecd60553e3e1c5f-="">Free Tutorial - Build a Zoom/Whatsapp style video calling app in SwiftUI</a></span><span class="sponsor-content">In just a few lines of Swift, you can go from prototype to production-ready Video Calling. Practice your skills and build a production-ready, fully functional messaging app in SwiftUI. <a onClick="if (!window.__cfRLUnblockHandlers) return false; gtag('event', 'click', {'event_category': 'Adverts', 'event_label': 'Stream 2024 - Variant B', 'value': 1.00,  'non_interaction': true}); plausible('Ad Click', {props: {partner: 'Stream 2024 - Variant B'}});" href="https://getstream.io/video/sdk/ios/tutorial/video-calling/?utm_source=swiftlee&utm_medium=promoted_newsletter&utm_content=developer&utm_campaign=sponsorship_variant_b" target="_blank" rel="sponsored" data-cf-modified-1f9a99dc6ecd60553e3e1c5f-="">Try out the tutorial for free</a>!</span><script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="1f9a99dc6ecd60553e3e1c5f-|49"></script><img class="pixel" style="width:0 !important; height:0 !important;" width="0" height="0" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" onload="gtag('event', 'impression', {'event_category': 'Adverts', 'event_label': 'Stream 2024 - Variant B', 'value': 2.00, 'non_interaction': true}); plausible('Ad Impression', {props: {partner: 'Stream 2024 - Variant B'}});" data-lazy-src="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><noscript><img class="pixel" style="width:0 !important; height:0 !important;" width="0" height="0" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" onload="gtag('event', 'impression', {'event_category': 'Adverts', 'event_label': 'Stream 2024 - Variant B', 'value': 2.00, 'non_interaction': true}); plausible('Ad Impression', {props: {partner: 'Stream 2024 - Variant B'}});" /></noscript></div></div>
+
+
+
+<h2 class="wp-block-heading"><a href="#basic-url-operations" aria-hidden="true" class="aal_anchor" id="basic-url-operations"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Basic URL Operations</h2>
+
+
+
+<p>It all starts with basic operations to create and work with links. For example, you can convert a String value into a URL as follows:
+
+
+
+<pre class="wp-block-code"><code lang="swift" class="language-swift">let url = URL(string: "https://www.avanderlee.com")!</code></pre>
+
+
+
+<p>The downside of this default initializer is the force unwrap we likely have to copy over throughout our codebase. A simple extension helps us to prevent this by using a custom initializer:
+
+
+
+<pre class="wp-block-code"><code lang="swift" class="language-swift">extension URL {
+    init(_ string: StaticString) {
+        self.init(string: "\(string)")!
+    }
+}
+
+var unwrappedURL = URL("https://www.avanderlee.com")</code></pre>
+
+
+
+<p>That looks a lot more swiftly and allows us to keep our implementation code clean from unwraps!
+
+
+
+<h3 class="wp-block-heading"><a href="#converting-a-url-into-a-string" aria-hidden="true" class="aal_anchor" id="converting-a-url-into-a-string"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>Converting a URL into a String</strong></h3>
+
+
+
+<p>A URL can also be converted into a <code>String</code> by using the <code>absoluteString</code> property:
+
+
+
+<pre class="wp-block-code"><code lang="swift" class="language-swift">print(unwrappedURL.absoluteString) // Prints: https://www.avanderlee.com</code></pre>
+
+
+
+<h3 class="wp-block-heading"><a href="#making-a-url-relative-to-a-base-url" aria-hidden="true" class="aal_anchor" id="making-a-url-relative-to-a-base-url"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>Making a URL relative to a base URL</strong></h3>
+
+
+
+<p>A scenario that&#8217;s often used when building an API in Swift is to construct a link by using a base URL. For example, we could build up a blog post category page as follows:
+
+
+
+<pre class="wp-block-code"><code lang="swift" class="language-swift">let category = "swift"
+let baseURL = URL(string: "https://www.avanderlee.com")!
+let blogURL = URL(string: category, relativeTo: baseURL)!
+print(blogURL) // Prints: swift -- https://www.avanderlee.com
+print(blogURL.absoluteString) // Prints: https://www.avanderlee.com/swift</code></pre>
+
+
+
+<p>At the same time, you can get the base for a certain link if the URL itself is not absolute:
+
+
+
+<pre class="wp-block-code"><code lang="swift" class="language-swift">let absoluteURL = URL(string: "https://www.avanderlee.com")!
+let relativeURL = URL(string: "swift", relativeTo: baseURL)!
+print(absoluteURL.baseURL) // Prints: nil
+print(relativeURL.baseURL!) // Prints: https://www.avanderlee.com</code></pre>
+
+
+
+<p>A base URL is often confused with getting the host of a link that prints out the domain without its scheme. You can get the scheme by using the <code>scheme</code> parameter:
+
+
+
+<pre class="wp-block-code"><code lang="swift" class="language-swift">let swiftLeeURL = URL(string: "https://www.avanderlee.com")!
+print(absoluteURL.host!) // Prints: www.avanderlee.com
+print(absoluteURL.scheme!) // Prints: https</code></pre>
+
+
+
+<h2 class="wp-block-heading"><a href="#working-with-url-components" aria-hidden="true" class="aal_anchor" id="working-with-url-components"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>Working with URL Components</strong></h2>
+
+
+
+<p>A link is basically built up out of several components. We&#8217;ve seen a few already in the print statements before but there are a lot more components to cover:
+
+
+
+<pre class="wp-block-code"><code lang="swift" class="language-swift">let twitterAvatarURL = URL(string: "https://twitter.com/twannl/photo.png?width=200&amp;height=200")!
+print(twitterAvatarURL.path) // Prints: /twannl/photo.png
+print(twitterAvatarURL.pathComponents) // Prints: ["/", "twannl", "photo.png"]
+print(twitterAvatarURL.pathExtension) // Prints: png
+print(twitterAvatarURL.lastPathComponent) // Prints: photo.png</code></pre>
+
+
+
+<p>These properties are great for a lot of cases like getting the file name or extension but they don&#8217;t give us the query items. This is where <code>URLComponents</code> come into place.
+
+
+
+<h3 class="wp-block-heading"><a href="#get-the-value-of-query-parameters" aria-hidden="true" class="aal_anchor" id="get-the-value-of-query-parameters"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>Get the value of query parameters</strong></h3>
+
+
+
+<p>The above Twitter avatar link contains two query parameters that describe the width and the height of the image. This is important information to fetch so we make sure that the image is displayed in the correct ratio. Therefore, we need to be able to get those query parameters and their values.
+
+
+
+<p>We can do this by using a <code>URLComponents</code> instance initialized with the link. It gives us access to a new collection of properties. You can basically see it as a URL parser that gives us access to, for example, the query items:
+
+
+
+<pre class="wp-block-code"><code lang="swift" class="language-swift">let components = URLComponents(string: "https://twitter.com/twannl/photo.png?width=200&amp;height=200")!
+print(components.query!) // width=200&amp;height=200
+print(components.queryItems!) // [width=200, height=200]</code></pre>
+
+
+
+<p><em>Note that the URLComponents structure parses and constructs URLs according to <a href="https://www.ietf.org/rfc/rfc3986.txt" target="_blank" rel="noreferrer noopener" aria-label="RFC 3986 (opens in a new tab)">RFC 3986</a>. Its behavior differs subtly from that of the URL structure, which conforms to older RFCs. However, you can easily obtain a URL value based on the contents of a URLComponents value or vice versa.</em>
+
+
+
+<p>This allows us to directly access the values by going over the query items array:
+
+
+
+<pre class="wp-block-code"><code lang="swift" class="language-swift">let width = components.queryItems!.first(where: { queryItem -> Bool in
+    queryItem.name == "width"
+})!.value!
+let height = components.queryItems!.first(where: { queryItem -> Bool in
+    queryItem.name == "height"
+})!.value!
+let imageSize = CGSize(width: Int(width)!, height: Int(height)!)
+print(imageSize) // Prints: (200.0, 200.0)</code></pre>
+
+
+
+<p>However, this is still not the most beautiful piece of code. We use a lot of unwraps and the code is not really readable as well. Therefore, we can make use of a custom subscript that allows us to make this code look a lot nicer:
+
+
+
+<pre class="wp-block-code"><code lang="swift" class="language-swift">extension Collection where Element == URLQueryItem {
+    subscript(_ name: String) -> String? {
+        first(where: { $0.name == name })?.value
+    }
+}
+let imageWidth = Int(components.queryItems!["width"]!)!
+let imageHeight = Int(components.queryItems!["height"]!)!
+let size = CGSize(width: imageWidth, height: imageHeight)</code></pre>
+
+
+
+<p><em>New to custom subscripts? Check out my blog post <a rel="noreferrer noopener" aria-label=" (opens in a new tab)" href="https://www.avanderlee.com/swift/custom-subscripts/" target="_blank">Custom subscripts in Swift explained with code examples</a></em>.
+
+
+
+<p>Yes, these are still a lot of unwraps. I&#8217;ll leave it up to you to make this look nicer by using guards for unwrapping. At least, we can access the query items a lot easier.
+
+
+
+<h3 class="wp-block-heading"><a href="#constructing-a-url-with-parameters" aria-hidden="true" class="aal_anchor" id="constructing-a-url-with-parameters"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>Constructing a URL with parameters</strong></h3>
+
+
+
+<p>The other way around is building a URL with query parameters from a dictionary. This is often used when building an API framework.
+
+
+
+<p>For example, if we want to fetch an avatar with a certain width and height, we can build it up as follows:
+
+
+
+<pre class="wp-block-code"><code lang="swift" class="language-swift">let parameters = [
+    "width": 500,
+    "height": 500
+]
+var avatarURLComponents = URLComponents(string: "https://twitter.com/twannl/photo.png")!
+avatarURLComponents.queryItems = parameters.map({ (key, value) -> URLQueryItem in
+    URLQueryItem(name: key, value: String(value))
+})
+print(avatarURLComponents.url!) // Prints: https://twitter.com/twannl/photo.png?width=500&amp;height=500</code></pre>
+
+
+
+<p>It might be valuable to write an extension here as well to make it easier to convert a dictionary into an array of query items:
+
+
+
+<pre class="wp-block-code"><code lang="swift" class="language-swift">extension Array where Element == URLQueryItem {
+    init&lt;T: LosslessStringConvertible>(_ dictionary: [String: T]) {
+        self = dictionary.map({ (key, value) -> Element in
+            URLQueryItem(name: key, value: String(value))
+        })
+    }
+}
+let pagingParameters = [
+    "offset": 2,
+    "limit": 50
+]
+var twitterFeedURLComponents = URLComponents(string: "https://twitter.com/feed")!
+twitterFeedURLComponents.queryItems = .init(pagingParameters)
+print(twitterFeedURLComponents.url!) // Prints: https://twitter.com/feed?offset=2&amp;limit=50</code></pre>
+
+
+
+<h2 class="wp-block-heading"><a href="#working-with-file-urls" aria-hidden="true" class="aal_anchor" id="working-with-file-urls"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>Working with file URLs</strong></h2>
+
+
+
+<p>When building apps we often reference local or remote files. You can download a certain image from a remote location or you can fetch an image from your local bundle.
+
+
+
+<p>It&#8217;s good to understand the difference between a remote URL and a local one. Only the latter is considered a file URL when using the <code>isFileURL</code> parameter:
+
+
+
+<pre class="wp-block-code"><code lang="swift" class="language-swift">var remoteFileURL = URL(string: "https://www.twitter.com/avatar.jpg")!
+var fileURL = URL(string: "file:///users/antoine/avatar.jpg")!
+print(remoteFileURL.isFileURL) // Prints: false
+print(fileURL.isFileURL) // Prints: true</code></pre>
+
+
+
+<p>This property basically only returns true when the URL scheme is <code>file:</code>.
+
+
+
+<h3 class="wp-block-heading"><a href="#getting-the-file-extensions-from-a-file-path" aria-hidden="true" class="aal_anchor" id="getting-the-file-extensions-from-a-file-path"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>Getting the file extensions from a fi</strong>le path</h3>
+
+
+
+<p>When working with files you often want to know the file extension to determine the file type. You can do this by using the path extension parameter:
+
+
+
+<pre class="wp-block-code"><code lang="swift" class="language-swift">print(fileURL.pathExtension) // Prints: jpg</code></pre>
+
+
+
+<h3 class="wp-block-heading"><a href="#how-to-get-the-filename-from-a-file-path-in-swift" aria-hidden="true" class="aal_anchor" id="how-to-get-the-filename-from-a-file-path-in-swift"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>How to get the filename from a file path in Swift</strong></h3>
+
+
+
+<p>To get the file name from a file URL we can use the <code>lastPathComponent</code> and extract the filename by removing the file extension:
+
+
+
+<pre class="wp-block-code"><code lang="swift" class="language-swift">print(fileURL.deletingPathExtension().lastPathComponent) // Prints: avatar</code></pre>
+
+
+
+<p>Isn&#8217;t that simple? This is great if you want to display the file name in your UI.
+
+
+
+<div class="gotngnp gotngnp-1"><div class="gotngnp-single aotngnp-97"><span class="swiftlee-ad"><span class="sponsor-title"><a onClick="if (!window.__cfRLUnblockHandlers) return false; gtag('event', 'click', {'event_category': 'Adverts', 'event_label': 'Stream 2024 - Variant B', 'value': 1.00,  'non_interaction': true}); plausible('Ad Click', {props: {partner: 'Stream 2024 - Variant B'}});" href="https://getstream.io/video/sdk/ios/tutorial/video-calling/?utm_source=swiftlee&utm_medium=promoted_newsletter&utm_content=developer&utm_campaign=sponsorship_variant_b" target="_blank" rel="sponsored" data-cf-modified-1f9a99dc6ecd60553e3e1c5f-="">Free Tutorial - Build a Zoom/Whatsapp style video calling app in SwiftUI</a></span><span class="sponsor-content">In just a few lines of Swift, you can go from prototype to production-ready Video Calling. Practice your skills and build a production-ready, fully functional messaging app in SwiftUI. <a onClick="if (!window.__cfRLUnblockHandlers) return false; gtag('event', 'click', {'event_category': 'Adverts', 'event_label': 'Stream 2024 - Variant B', 'value': 1.00,  'non_interaction': true}); plausible('Ad Click', {props: {partner: 'Stream 2024 - Variant B'}});" href="https://getstream.io/video/sdk/ios/tutorial/video-calling/?utm_source=swiftlee&utm_medium=promoted_newsletter&utm_content=developer&utm_campaign=sponsorship_variant_b" target="_blank" rel="sponsored" data-cf-modified-1f9a99dc6ecd60553e3e1c5f-="">Try out the tutorial for free</a>!</span><script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="1f9a99dc6ecd60553e3e1c5f-|49"></script><img decoding="async" class="pixel" style="width:0 !important; height:0 !important;" width="0" height="0" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" onload="gtag('event', 'impression', {'event_category': 'Adverts', 'event_label': 'Stream 2024 - Variant B', 'value': 2.00, 'non_interaction': true}); plausible('Ad Impression', {props: {partner: 'Stream 2024 - Variant B'}});" data-lazy-src="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" /><noscript><img decoding="async" class="pixel" style="width:0 !important; height:0 !important;" width="0" height="0" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" onload="gtag('event', 'impression', {'event_category': 'Adverts', 'event_label': 'Stream 2024 - Variant B', 'value': 2.00, 'non_interaction': true}); plausible('Ad Impression', {props: {partner: 'Stream 2024 - Variant B'}});" /></noscript></div></div><h3 class="wp-block-heading"><a href="#conclusion" aria-hidden="true" class="aal_anchor" id="conclusion"><svg aria-hidden="true" class="aal_svg" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Conclusion</h3>
+
+
+
+<p>URLs in Swift are used in a lot of ways. We fetch data using an API, images to visualize our app, and we often work with local files from our bundle. The Foundation framework allows us to access a lot of URL components easily with default parameters. If we need access to URL components like query items, we can make use of the <code>URLComponents</code> type.
+
+
+
+<p><em>Do you think that I missed an essential part of working with URLs? Please, <a href="/cdn-cgi/l/email-protection#3f5c50514b5e5c4b7f5e495e515b5a4d535a5a115c5052">let me know</a>!</em>
+
+
+
+<p>If you like to improve your Swift knowledge, even more, check out the&nbsp;<a href="https://www.avanderlee.com/category/swift/">Swift category page</a>. Feel free to&nbsp;<a href="/cdn-cgi/l/email-protection#690a06071d080a1d29081f08070d0c1b050c0c470a0604">contact me</a>&nbsp;or tweet to me on&nbsp;<a href="https://www.twitter.com/twannl">Twitter</a>&nbsp;if you have any additional tips or feedback.
+
+
+
+<p>Thanks!
+		    			<div class="clear">&nbsp;</div>
+		</section>
+		
+	<div class="article-inline-newsletter-container">
+		<p class="inline-newsletter-title">Swift is moving fast, staying current is challenging</p>
+		<p>Let me do the hard work and <strong>join 17,372 developers</strong> that stay up to date using my weekly newsletter:</p>
+		<div class="mailchimp_subscribe_form">
+			<form id="mc4wp-form-1" class="mc4wp-form mc4wp-form-1316" action="https://www.avanderlee.com/sendy/subscribe" method="POST" accept-charset="utf-8">
+				<div class="mc4wp-form-fields">
+					<p>
+						<input id="mailchimp-email" type="email" name="email" placeholder="Your email address" required="">
+						<input type="submit" value="Follow"/>
+					</p>
+				</div>
+				<div style="display:none;">
+					<label for="hp">HP</label><br/>
+					<input type="text" name="hp" id="hp"/>
+				</div>
+				<input type="hidden" name="list" value="1g197sxORSW2Zw6xXxYd0g"/>
+				<input type="hidden" name="subform" value="yes"/>
+				<input type="hidden" name="source" value="header" style="display:none">
+			</form>
+		</div>
+	</div>
+	<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="1f9a99dc6ecd60553e3e1c5f-|49"></script><img class="pixel" style="width:0 !important; height:0 !important;" width="0" height="0" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" onload="plausible('Inline Newsletter Form Impression');" data-lazy-src="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="><noscript><img class="pixel" style="width:0 !important; height:0 !important;" width="0" height="0" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" onload="plausible('Inline Newsletter Form Impression');"></noscript>	<div class="swiftlee-jobs-rss">
+		<h3>Featured SwiftLee Jobs</h3>
+		<div class="draftboard-jobs">
+			<div class="wp-rss-aggregator wpra-list-template">
+				<ul class="wpra-item-list rss-aggregator ">
+					<li class="wpra-item feed-item ">
+						<a href="https://www.draftboard.com/apply/z0tOwv5t" target="_blank" rel="nofollow" class="">Senior iOS Engineer @ Speechify</a>
+					</li>
+					<li class="wpra-item feed-item ">
+						<a href="https://www.draftboard.com/apply/TxOO0mM4" target="_blank" rel="nofollow" class="">Senior Mobile Software Engineer @ Sheer Health</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+				<p>Find your next Swift career step at world-class companies with impressive apps by joining the SwiftLee Talent Collective. I'll match engineers in my collective with exciting app development companies. <a href="https://swiftlee.pallet.com/talent/welcome" target="_blank">SwiftLee Jobs</a></p>
+	</div>
+	<footer class="post-footer">
+
+	    <section class="author">
+	    	<img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3C/svg%3E" alt="Antoine van der Lee" class="avatar avatar-100 photo" height="100" width="100" data-lazy-src="https://www.avanderlee.com/wp-content/uploads/2020/04/avatar_126@3x-min.jpg"><noscript><img src='https://www.avanderlee.com/wp-content/uploads/2020/04/avatar_126@3x-min.jpg' alt="Antoine van der Lee" class="avatar avatar-100 photo" height="100" width="100"></noscript>
+	    	<!-- <img alt='' src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3C/svg%3E" data-lazy-srcset='https://secure.gravatar.com/avatar/f8e9db9ffd8d409b284f1a4a5471c1e7?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' decoding='async' data-lazy-src="https://secure.gravatar.com/avatar/f8e9db9ffd8d409b284f1a4a5471c1e7?s=100&#038;d=mm&#038;r=g"/><noscript><img alt='' src='https://secure.gravatar.com/avatar/f8e9db9ffd8d409b284f1a4a5471c1e7?s=100&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/f8e9db9ffd8d409b284f1a4a5471c1e7?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' decoding='async'/></noscript> -->
+	    	<div class="author-follow-links">
+	    		<a href="https://github.com/sponsors/AvdLee" target="_blank">GitHub Sponsor</a>
+	    		<a href="https://twitter.com/intent/user?original_referer=https%3A%2F%2Fwww.avanderlee.com&region=count_link&screen_name=twannl&tw_p=followbutton" target="_blank">Follow</a>
+	    	</div>
+	    	<p class="author-subtitle">Written by</p>
+	        <h4><a href="https://www.avanderlee.com" title="Visit Antoine van der Lee&#8217;s website" rel="author external">Antoine van der Lee</a></h4>
+	        <p class="author-description">iOS Developer since 2010. Lead developer of the <a href="https://collect.bywetransfer.com" target="_blank" rel="noopener noreferrer">Collect by WeTransfer</a> app. Writing a new blog post every week related to Swift, iOS and Xcode. Regular speaker and workshop host.</p>
+			<div class="clear">&nbsp;</div>
+	    </section>
+	</footer>
+
+	<!-- <div class='onesignal-customlink-container'></div> -->
+</article><!-- #post-## -->
+
+				<nav class="pagination navigation post-navigation" role="navigation">
+		<div class="nav-links">
+			<div class="older-posts"><a href="https://www.avanderlee.com/swiftui/previews-different-states/" rel="prev">SwiftUI Previews: Validating views in different states <span class="meta-nav">&rarr;</span></a></div>				<div class="page-number">&bull;</div>
+				<div class="newer-posts"><a href="https://www.avanderlee.com/swift/custom-debug-descriptions/" rel="next"><span class="meta-nav">&larr;</span> Using Custom debug descriptions to improve debugging</a></div>		</div><!-- .nav-links -->
+	</nav><!-- .navigation -->
+	
+			
+		
+
+	<div id="secondary" class="widget-area" role="complementary">
+		<aside id="similar_posts_widget" class="widget widget_rrm_similar_posts"><h3 class="widget-title">Other also read</h3><div class="pt-cv-wrapper">    <div class="pt-cv-view pt-cv-grid pt-cv-colsys">       <div data-id="pt-cv-page-1" class="pt-cv-page" data-cvc="3"><div class="col-md-4 col-sm-4 col-xs-12 pt-cv-content-item pt-cv-1-col">
+            <div class="pt-cv-ifield">
+               <h3 class="pt-cv-title"><a href="https://www.avanderlee.com/swift/macros/" class="_self" target="_self">Swift Macros: Extend Swift with New Kinds of Expressions</a></h3>
+               <div class="pt-cv-content">
+Swift Macros got introduced in the WWDC 2023 release of Swift 5.9. They are a new way for you to ...<br><a href="https://www.avanderlee.com/swift/macros/" class="_self pt-cv-readmore btn btn-success" target="_self">Read More</a></div>
+               <div class="pt-cv-meta-fields"><span class="entry-date">Jun 13, 2023</span> <span class="terms"> <a href="https://www.avanderlee.com/category/swift/" title="View all posts in Swift" rel="category tag" class="pt-cv-tax-swift">Swift</a> </span></div>
+            </div>
+         </div>
+
+<div class="col-md-4 col-sm-4 col-xs-12 pt-cv-content-item pt-cv-1-col">
+            <div class="pt-cv-ifield">
+               <h3 class="pt-cv-title"><a href="https://www.avanderlee.com/swift/equatable-comparible-conformance/" class="_self" target="_self">Equatable conformance in Swift explained with code examples</a></h3>
+               <div class="pt-cv-content">
+Equatable conformance allows you to compare one object with another. Based on whether the objects match, you can perform a ...<br><a href="https://www.avanderlee.com/swift/equatable-comparible-conformance/" class="_self pt-cv-readmore btn btn-success" target="_self">Read More</a></div>
+               <div class="pt-cv-meta-fields"><span class="entry-date">Mar 07, 2023</span> <span class="terms"> <a href="https://www.avanderlee.com/category/swift/" title="View all posts in Swift" rel="category tag" class="pt-cv-tax-swift">Swift</a> </span></div>
+            </div>
+         </div>
+
+<div class="col-md-4 col-sm-4 col-xs-12 pt-cv-content-item pt-cv-1-col">
+            <div class="pt-cv-ifield">
+               <h3 class="pt-cv-title"><a href="https://www.avanderlee.com/swift/share-swift-code-swift-on-server-vapor/" class="_self" target="_self">Share Swift Code between Swift On Server Vapor and Client App</a></h3>
+               <div class="pt-cv-content">
+Sharing Swift code between a backend and client app is one of the benefits you&#8217;ll get when working with Swift ...<br><a href="https://www.avanderlee.com/swift/share-swift-code-swift-on-server-vapor/" class="_self pt-cv-readmore btn btn-success" target="_self">Read More</a></div>
+               <div class="pt-cv-meta-fields"><span class="entry-date">May 30, 2023</span> <span class="terms"> <a href="https://www.avanderlee.com/category/swift/" title="View all posts in Swift" rel="category tag" class="pt-cv-tax-swift">Swift</a> </span></div>
+            </div>
+         </div>
+</div></div></div><!-- Similar Posts took 81.825 ms --></aside>		<div class="clear">&nbsp;</div>
+	</div><!-- #secondary -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+	    <a class="subscribe icon-feed" href="https://www.avanderlee.com/feed/"><span class="tooltip">Subscribe!</span></a>
+		<div class="site-info inner">
+							<div id="site-footer-widgets" class="site-footer-widgets widget-area" role="complementary">
+					<div id="site-footer-widgets-inner">
+						<div class="widget_text site-footer-widget"><h3>Categories</h3><div class="textwidget custom-html-widget"><ul>
+	<li><a href="/category/swift">Swift</a></li>
+		<li><a href="/category/xcode">Xcode</a></li>
+		<li><a href="/category/optimization">Optimization</a></li>
+		<li><a href="/category/debugging">Debugging</a></li>
+		<li><a href="/category/workflow">Workflow</a></li>
+</ul></div></div><div class="widget_text site-footer-widget"><h3>Follow</h3><div class="textwidget custom-html-widget"><ul>
+		<li><a href="https://www.avanderlee.com/swiftlee-weekly/">Newsletter</a></li>
+	<li><a href="https://www.twitter.com/twannl">Twitter</a></li>
+	<li><a href="https://nl.linkedin.com/in/ajvanderlee">LinkedIn</a></li>
+		<li><a href="https://www.github.com/avdlee">GitHub</a></li>
+	<li><a href="https://www.twitter.com/rocketsim_app">RocketSim</a></li>
+		<li><a href="/feed">RSS</a></li>
+</ul></div></div><div class="widget_text site-footer-widget"><h3>Info</h3><div class="textwidget custom-html-widget"><ul>
+	<li><a href="/about">About</a></li>
+	<li><a href="https://shop.spreadshirt.nl/swiftlee/">Shop</a></li>
+	<li><a href="/sponsor">Sponsor</a></li>
+		<li><a href="/cdn-cgi/l/email-protection#781b17160c191b0c38190e19161c1d0a141d1d561b1715">Contact</a></li>
+</ul></div></div>					</div>
+				</div><!-- #primary-sidebar -->
+					    <section class="copyright">
+		    	Copyright &copy; 2015-2024 <a href="https://www.avanderlee.com">SwiftLee</a>. All Rights Reserved. 
+		    </section>
+		</div><!-- .site-info -->
+	</footer><!-- #colophon -->
+</main><!-- /#content -->
+
+<link rel='stylesheet' id='ez-toc-css' href='https://www.avanderlee.com/wp-content/plugins/easy-table-of-contents/assets/css/screen.min.css?ver=2.0.61' type='text/css' media='all' />
+<style id='ez-toc-inline-css' type='text/css'>
+div#ez-toc-container .ez-toc-title {font-size: 100%;}div#ez-toc-container .ez-toc-title {font-weight: 500;}div#ez-toc-container ul li {font-size: 95%;}div#ez-toc-container nav ul ul li {font-size: ;}
+</style>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="1f9a99dc6ecd60553e3e1c5f-text/javascript" id="adrotate-clicktracker-replacement-js-extra">
+/* <![CDATA[ */
+var click_object = {"ajax_url":"https:\/\/www.avanderlee.com\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script data-minify="1" type="1f9a99dc6ecd60553e3e1c5f-text/javascript" src="https://www.avanderlee.com/wp-content/cache/min/1/wp-content/themes/casper/js/rotate.js?ver=1706131126" id="adrotate-clicktracker-replacement-js" defer></script>
+<script data-minify="1" type="1f9a99dc6ecd60553e3e1c5f-text/javascript" src="https://www.avanderlee.com/wp-content/cache/min/1/wp-content/themes/casper/js/prism.js?ver=1706131126" id="modified-code-syntax-prism-js-js" defer></script>
+<script type="1f9a99dc6ecd60553e3e1c5f-text/javascript" src="https://www.avanderlee.com/wp-content/plugins/sticky-block/dist/sticky-block.min.js?ver=1.0" id="sticky_block-js-js" defer></script>
+<script type="1f9a99dc6ecd60553e3e1c5f-text/javascript">(function(d){var s=d.createElement("script");s.type="text/javascript";s.src="https://a.omappapi.com/app/js/api.min.js";s.async=true;s.id="omapi-script";d.getElementsByTagName("head")[0].appendChild(s);})(document);</script><script id="ocvars" type="1f9a99dc6ecd60553e3e1c5f-text/javascript">var ocSiteMeta = {plugins: {"a3e4aa5d9179da09d8af9b6802f861a8": 1,"b904efd4c2b650207df23db3e5b40c86": 1}}</script>		<script type="1f9a99dc6ecd60553e3e1c5f-text/javascript">var omapi_data = {"object_id":4312,"object_key":"post","object_type":"post","term_ids":[25,3091,2906,3089],"wp_json":"https:\/\/www.avanderlee.com\/wp-json","wc_active":false,"edd_active":false,"nonce":"dadac90c15"};</script>
+		<script type="1f9a99dc6ecd60553e3e1c5f-text/javascript">window.lazyLoadOptions=[{elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}},{elements_selector:".rocket-lazyload",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,}];window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(var i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://www.avanderlee.com/wp-content/plugins/wp-rocket/assets/js/lazyload/17.8.3/lazyload.min.js" type="1f9a99dc6ecd60553e3e1c5f-text/javascript"></script><script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="1f9a99dc6ecd60553e3e1c5f-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"84ab584b1c037b53","version":"2024.1.0","token":"6fc094e49c374b2ca338a3b56fd70419"}' crossorigin="anonymous"></script>
+</body>
+</html>
+
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me -->
