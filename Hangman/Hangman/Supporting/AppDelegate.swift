@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  Hangman_challenge
+//  Hangman
 //
-//  Created by Zach Nazarov on 18/02/2024.
+//  Created by Zach Nazarov on 25/02/2024.
 //
 
 import UIKit

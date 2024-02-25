@@ -5,53 +5,58 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var clueLabel:UILabel!
-    var answerLabel:UILabel!
-    var correctAnswersCountLabel:UILabel!
-    var gallowsLabel:UILabel!
+    var clueLabel:UILabel!                   //  provides a clue
+    var answerLabel:UILabel!                // the answer word goes in here
+    var scoreLabel:UILabel!                // displays users's score ex. - - - - - , - A - - E, etc
+    var gallowsLabel:UILabel!             // shows the gallows
+    var hangmanLabel:UILabel!            // gradually reveals the body of a hanged man
 
     
-    var keyLetters = [String]()
-    var levels = [String]()
-    var letterButtons = [UIButton]()
-    var activatedButtons = [UIButton]()
-    var charWordSet = [Character]()
+    var levels = [String]()                       // loaded levels strings are going in here
+    var letterButtons = [UIButton]()             //  buttons that represent letters
+    var charWordSet = [Character]()             //   used to replace - with a letter if guessed wright and rebuild a string
+                                               //    that will represent the answer
     
+   
+ // the word a player has to guess ( gets initialized in loadLevel()
     
     var correctAnswer = ""
+ 
+
+// the picture of a hanged man and gallows represented by two arrays of Strings ( appear according to the number of wrong answers
     
+    var gallowsScene = [String]()
+    var hangmanScene = [String]()
     
-    var gallowsScene = [
-        "The gallows appears\n",
-        "The noose appears\n",
-        "The head appears\n",
-        "The body appears\n",
-        "The left hand appears\n",
-        "The right hand appears\n",
-        "The left leg appears\n",
-        "The right leg appears\n",
-        "YOU ARE HANGED!"]
-    
+
+// score and correct answers / wrong answers counts
     
     var score = 0 {
         
         didSet{
-            correctAnswersCountLabel.text = "Score : \(score)"
+            scoreLabel.text = "Score : \(score)"
         }
     }
     
+    var correctAnswersCount = 0
     
-    var correctAnswers = 0
-    
-    var wrongAnswers = 0{
+    var wrongAnswersCount = 0{              // value observer that reacts to a wrong letter being touched
         didSet{
-            if wrongAnswers == 0 {
+            if wrongAnswersCount == 0 {    // gets executed when a level is reloaded
                 gallowsLabel.text = ""
+                hangmanLabel.text = ""
+                
             }else{
-                gallowsLabel.text! += gallowsScene[wrongAnswers - 1]
+                if wrongAnswersCount == 1 {                    // the gallows appear at the first incorrect guess
+                    gallowsLabel.text = gallowsScene[0]
+                }else{
+                    hangmanLabel.text? += "\(hangmanScene[wrongAnswersCount - 2 ])\n"  // as more wrong letters are pressed a body of
+                }                                                                     //  a hangman appears out of the dark
             }
         }
+        
     }
+                       // a level to be loaded
     var level = 0
     
     
@@ -82,11 +87,12 @@ class ViewController: UIViewController {
     func loadLevel() {
         
         
+        
         if levels.isEmpty { print("oops")
         }else{
             
-            correctAnswers = 0
-            wrongAnswers = 0
+            correctAnswersCount = 0
+            wrongAnswersCount = 0
             correctAnswer = ""
             charWordSet.removeAll()
             
@@ -98,7 +104,6 @@ class ViewController: UIViewController {
             clueLabel.text = "\(levelContents[0]) (\(levelContents[1].count))"
             
             let answer = levelContents[1]
-         //   let answerLetterCount = answer.count
             correctAnswer = answer
             
             for _ in 0..<correctAnswer.count {
@@ -150,7 +155,7 @@ extension ViewController {
         view = UIView()
         view.backgroundColor = .black
         
-        performSelector(inBackground: #selector(loadLevels), with: nil)
+        performSelector(inBackground: #selector(loadData), with: nil)
         
         
         clueLabel = UILabel()
@@ -162,26 +167,38 @@ extension ViewController {
         view.addSubview(clueLabel)
         
         
-        correctAnswersCountLabel = UILabel()
-        correctAnswersCountLabel.translatesAutoresizingMaskIntoConstraints = false
-        correctAnswersCountLabel.textAlignment = .left
-        correctAnswersCountLabel.font = UIFont.systemFont(ofSize: 20)
-        correctAnswersCountLabel.textColor = .white
-        correctAnswersCountLabel.text = "Score : \(correctAnswers)"
-        view.addSubview(correctAnswersCountLabel)
+        scoreLabel = UILabel()
+        scoreLabel.translatesAutoresizingMaskIntoConstraints = false
+        scoreLabel.textAlignment = .left
+        scoreLabel.font = UIFont.systemFont(ofSize: 20)
+        scoreLabel.textColor = .white
+        scoreLabel.text = "Score : \(correctAnswersCount)"
+        view.addSubview(scoreLabel)
+        
         
         gallowsLabel = UILabel()
         gallowsLabel.translatesAutoresizingMaskIntoConstraints = false
-        gallowsLabel.font = UIFont.systemFont(ofSize: 20)
+        gallowsLabel.font = UIFont.systemFont(ofSize: 24)
         gallowsLabel.textColor = .white
         gallowsLabel.numberOfLines = 0
         gallowsLabel.text = ""
-        
-        
-        
-        
         gallowsLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
         view.addSubview(gallowsLabel)
+        
+        hangmanLabel = UILabel()
+        hangmanLabel.translatesAutoresizingMaskIntoConstraints = false
+        hangmanLabel.font = UIFont.systemFont(ofSize: 24)
+        hangmanLabel.textColor = .white
+        hangmanLabel.numberOfLines = 0
+        hangmanLabel.text = ""
+        hangmanLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
+        view.addSubview(hangmanLabel)
+        
+        
+        
+        
+      
+       
         
         
         answerLabel = UILabel()
@@ -207,10 +224,14 @@ extension ViewController {
         
         NSLayoutConstraint.activate([
         
-            correctAnswersCountLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor,constant: 10),
-            correctAnswersCountLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            gallowsLabel.topAnchor.constraint(equalTo: correctAnswersCountLabel.bottomAnchor, constant: 40),
-            gallowsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            scoreLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor,constant: 10),
+            scoreLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            gallowsLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor, constant: 40),
+            gallowsLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor,constant: 10),
+            gallowsLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.5 ,constant: -5),
+            hangmanLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor,constant: -10),
+            hangmanLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor,constant: 69),
+            hangmanLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.5,constant: -5),
             clueLabel.topAnchor.constraint(equalTo: gallowsLabel.topAnchor,constant: 250),
             clueLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             clueLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 40),
@@ -255,7 +276,7 @@ extension ViewController {
         
     }
     
-    @objc func loadLevels(){
+    @objc func loadData(){
         
         if let levelsURL = Bundle.main.url(forResource: "levels", withExtension: "txt"){
             if let levelsString = try? String.init(contentsOf: levelsURL){
@@ -267,6 +288,28 @@ extension ViewController {
                     if level == "" {levels.remove(at: index)}
                 }
                
+            }
+        }
+        
+        if let gallowsURL = Bundle.main.url(forResource: "gallows", withExtension: "txt"){
+            if let gallowsString = try? String.init(contentsOf: gallowsURL){
+                gallowsScene.append(gallowsString)
+                
+            }
+        }
+        
+        if let hangmanURL = Bundle.main.url(forResource: "hangman", withExtension: "txt"){
+            if let hangmanString = try? String.init(contentsOf: hangmanURL){
+               let hangmanSceneProto = hangmanString.components(separatedBy: "\n")
+                for string in hangmanSceneProto {
+                    if string == "" {
+                        // do nothing
+                    }else{
+                        hangmanScene.append(string)
+                        
+                    }
+                }
+                
             }
         }
         
@@ -290,7 +333,7 @@ extension ViewController {
              
                 charWordSet[index] = letter
                currentCorrectAnswer += 1
-                correctAnswers += 1
+                correctAnswersCount += 1
                
                 
             }
@@ -301,7 +344,7 @@ extension ViewController {
             score += 1
             
         }else{
-            wrongAnswers +=  1
+            wrongAnswersCount +=  1
             sender.setTitleColor(.red, for: .disabled)
         }
         
@@ -315,7 +358,7 @@ extension ViewController {
     
     func updateUI(){
         
-        if wrongAnswers == gallowsScene.count {
+        if wrongAnswersCount == hangmanScene.count + 1 {
             
             let ac = UIAlertController(title: "You are a hangman !", message: "Do you want to rise from the dead and start over ? ", preferredStyle: .alert)
             let restart = UIAlertAction(title: "Restart", style: .default){ action in
@@ -324,13 +367,21 @@ extension ViewController {
                 self.loadLevel()
             }
             
+            let cancel = UIAlertAction(title: "Quitting?", style: .default){ action in
+                
+            let vc = HangedViewController()
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc,animated: true)
+            }
+            
             ac.addAction(restart)
+            ac.addAction(cancel)
             present(ac,animated: true)
         }
-        print(correctAnswers,correctAnswer.count)
         
         
-        if correctAnswers == correctAnswer.count  {
+        
+        if correctAnswersCount == correctAnswer.count  {
             
             
             level += 1
@@ -345,7 +396,15 @@ extension ViewController {
                     self.loadLevel()
                 }
                 
+                let cancel = UIAlertAction(title: "Quitting?", style: .default){ action in
+                    
+                let vc = HangedViewController()
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc,animated: true)
+                }
+                
                 ac.addAction(restart)
+                ac.addAction(cancel)
                 present(ac,animated: true)
                 
             }
